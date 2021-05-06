@@ -32,6 +32,11 @@ class Characteristics
     private $smoker;
 
     /**
+     * @ORM\Column(type="boolean")
+     */
+    private $alcohol;
+
+    /**
      * @ORM\ManyToOne(targetEntity=Weight::class, inversedBy="characteristics")
      */
     private $weight;
@@ -149,6 +154,18 @@ class Characteristics
     public function setWeight(?Weight $weight): self
     {
         $this->weight = $weight;
+
+        return $this;
+    }
+
+    public function getAlcohol(): ?bool
+    {
+        return $this->alcohol;
+    }
+
+    public function setAlcohol(bool $alcohol): self
+    {
+        $this->alcohol = $alcohol;
 
         return $this;
     }
