@@ -27,14 +27,14 @@ class Characteristics
     private $height;
 
     /**
-     * @ORM\OneToMany(targetEntity=weight::class, mappedBy="characteristics")
-     */
-    private $weight;
-
-    /**
      * @ORM\Column(type="boolean")
      */
     private $smoker;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Weight::class, inversedBy="characteristics")
+     */
+    private $weight;
 
     /**
      * @ORM\OneToOne(targetEntity=Users::class, mappedBy="characteristics", cascade={"persist", "remove"})
@@ -64,7 +64,6 @@ class Characteristics
 
     public function __construct()
     {
-        $this->weight = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -120,36 +119,6 @@ class Characteristics
         return $this;
     }
 
-    /**
-     * @return Collection|weight[]
-     */
-    public function getWeight(): Collection
-    {
-        return $this->weight;
-    }
-
-    public function addWeight(weight $weight): self
-    {
-        if (!$this->weight->contains($weight)) {
-            $this->weight[] = $weight;
-            $weight->setCharacteristics($this);
-        }
-
-        return $this;
-    }
-
-    public function removeWeight(weight $weight): self
-    {
-        if ($this->weight->removeElement($weight)) {
-            // set the owning side to null (unless already changed)
-            if ($weight->getCharacteristics() === $this) {
-                $weight->setCharacteristics(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function getUsers(): ?Users
     {
         return $this->users;
@@ -168,6 +137,18 @@ class Characteristics
         }
 
         $this->users = $users;
+
+        return $this;
+    }
+
+    public function getWeight(): ?Weight
+    {
+        return $this->weight;
+    }
+
+    public function setWeight(?Weight $weight): self
+    {
+        $this->weight = $weight;
 
         return $this;
     }

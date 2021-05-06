@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\WeightRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -25,14 +27,19 @@ class Weight
     private $weight;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Characteristics::class, inversedBy="weight")
-     */
-    private $characteristics;
-
-    /**
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Characteristics::class, mappedBy="weight")
+     */
+    private $characteristics;
+
+    public function __construct()
+    {
+        $this->characteristics = new ArrayCollection();
+    }
 
     /**
      * @ORM\PrePersist()
@@ -74,15 +81,34 @@ class Weight
         return $this;
     }
 
-    public function getCharacteristics(): ?Characteristics
+    /**
+     * @return Collection|Characteristics[]
+     */
+    public function getCharacteristics(): Collection
     {
         return $this->characteristics;
     }
 
-    public function setCharacteristics(?Characteristics $characteristics): self
+    public function addCharacteristic(Characteristics $characteristic): self
     {
-        $this->characteristics = $characteristics;
+        if (!$this->characteristics->contains($characteristic)) {
+            $this->characteristics[] = $characteristic;
+            $characteristic->setWeight($this);
+        }
 
         return $this;
     }
+
+    public function removeCharacteristic(Characteristics $characteristic): self
+    {
+        if ($this->characteristics->removeElement($characteristic)) {
+            // set the owning side to null (unless already changed)
+            if ($characteristic->getWeight() === $this) {
+                $characteristic->setWeight(null);
+            }
+        }
+
+        return $this;
+    }
+
 }
