@@ -6,6 +6,8 @@ use App\Repository\CharacteristicsRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=CharacteristicsRepository::class)
@@ -23,6 +25,25 @@ class Characteristics
 
     /**
      * @ORM\Column(type="integer")
+     *
+     * @Assert\NotBlank(
+     *     message="Merci de renseigner votre nom.",
+     *     groups={"Register"}
+     *     )
+     *
+     * @Assert\Length(
+     *     min="3",
+     *     max="3",
+     *     minMessage="Merci de renseigner une taille correct",
+     *     groups={"Register"}
+     *     )
+     *
+     * @Assert\Regex(
+     *     pattern="/^(?:[1-3]\\d\\d|250)$/",
+     *     message="Merci de renseigner une taille valide.",
+     *     groups={"Register"},
+     * )
+     *
      */
     private $height;
 

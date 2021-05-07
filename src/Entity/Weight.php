@@ -6,6 +6,7 @@ use App\Repository\WeightRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=WeightRepository::class)
@@ -23,6 +24,25 @@ class Weight
 
     /**
      * @ORM\Column(type="float")
+     *
+     * @Assert\NotBlank(
+     *     message="Merci de renseigner votre poids.",
+     *     groups={"Register"}
+     *     )
+     *
+     * @Assert\Length(
+     *     min="3",
+     *     max="3",
+     *     minMessage="Merci de renseigner un poids",
+     *     groups={"Register"}
+     *     )
+     *
+     * @Assert\Regex(
+     *     pattern="/^(?:[1-9]\d|300)$/",
+     *     message="Merci de renseigner un poids valide.",
+     *     groups={"Register"},
+     * )
+     *
      */
     private $weight;
 

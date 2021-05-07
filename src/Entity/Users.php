@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\UsersRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -12,6 +13,18 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass=UsersRepository::class)
  *
  * @ORM\HasLifecycleCallbacks
+ *
+ * @UniqueEntity(
+ *     fields={"email"},
+ *     message="Cet email est déjà utilisé.",
+ *     groups={"Register"},
+ * )
+ *
+ * @UniqueEntity(
+ *     fields={"pseudo"},
+ *     message="Ce pseudo est déjà utilisé.",
+ *     groups={"Register"},
+ * )
  *
  */
 class Users implements UserInterface
@@ -25,16 +38,52 @@ class Users implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     *
+     * @Assert\NotBlank(
+     *     message="Merci de renseigner votre nom.",
+     *     groups={"Register"}
+     *     )
+     *
+     * @Assert\Length(
+     *     min="2",
+     *     minMessage="Merci de renseigner un nom correct",
+     *     groups={"Register"}
+     *     )
+     *
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255)
+     *
+     * @Assert\NotBlank(
+     *     message="Merci de renseigner votre prenom.",
+     *     groups={"Register"}
+     *     )
+     *
+     * @Assert\Length(
+     *     min="2",
+     *     minMessage="Merci de renseigner un prenom correct",
+     *     groups={"Register"}
+     *     )
+     *
      */
     private $surname;
 
     /**
      * @ORM\Column(type="string", length=255)
+     *
+     * @Assert\NotBlank(
+     *     message="Merci de renseigner votre pseudo.",
+     *     groups={"Register"}
+     *     )
+     *
+     * @Assert\Length(
+     *     min="2",
+     *     minMessage="Merci de renseigner un pseudo correct",
+     *     groups={"Register"}
+     *     )
+     *
      */
     private $pseudo;
 
@@ -45,26 +94,87 @@ class Users implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     *
+     * @Assert\NotBlank(
+     *     message="Merci de renseigner votre email.",
+     *     groups={"Register"}
+     *     )
+     *
+     * @Assert\Email(
+     *     message="Veuillez renseigner un mail valide.",
+     *     groups={"Register"}
+     *     )
+     *
      */
     private ?string $email;
 
     /**
      * @ORM\Column(type="string", length=255)
+     *
+     * @Assert\NotBlank(
+     *     message="Merci de renseigner votre ville.",
+     *     groups={"Register"}
+     *     )
+     *
+     * @Assert\Length(
+     *     min="2",
+     *     minMessage="Merci de renseigner une ville existante.",
+     *     groups={"Register"}
+     *     )
+     *
      */
     private $city;
 
     /**
      * @ORM\Column(type="string", length=255)
+     *
+     * @Assert\Length(
+     *     min="5",
+     *     minMessage="Merci de renseigner une adresse correct",
+     *     groups={"Register"}
+     *     )
+     *
+     * @Assert\Length(
+     *     min="5",
+     *     minMessage="Merci de renseigner une adresse correct",
+     *     groups={"UpdateContactInformations"}
+     *     )
+     *
      */
     private $address;
 
     /**
      * @ORM\Column(type="integer")
+     *
+     * @Assert\NotBlank(
+     *     message="Merci de renseigner votre code postal.",
+     *     groups={"Register"}
+     *     )
+     *
+     * @Assert\Length(
+     *     min="2",
+     *     minMessage="Merci de renseigner un code postale valide.",
+     *     groups={"Register"}
+     *     )
+     *
      */
     private $postalCode;
 
     /**
      * @ORM\Column(type="integer")
+     *
+     * @Assert\NotBlank(
+     *     message="Merci de renseigner votre numéro de téléphone.",
+     *     groups={"Register"}
+     *     )
+     *
+     * @Assert\Length(
+     *     min="10",
+     *     max="10",
+     *     minMessage="Merci de renseigner un numéro de téléphone valide.",
+     *     groups={"Register"}
+     *     )
+     *
      */
     private $phone;
 
@@ -81,6 +191,38 @@ class Users implements UserInterface
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
+     *
+     * @Assert\NotBlank(
+     *     message="Merci de renseigner votre mot de passe.",
+     *     groups={"Register"},
+     *     )
+     *
+     * @Assert\Length(
+     *     min="8",
+     *     minMessage="Veuillez renseigner un mot de passe d'au moins 8 caractères.",
+     *     groups={"Register"},
+     *     )
+     *
+     * @Assert\Regex(
+     *     pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!.:,;^%*?&µù%=&])[A-Za-z\d@$!.:,;^%*?&µù%=&]{8,}$/",
+     *     message="Votre mot de passe doit contenir au moins caractère spécial, une majuscule ainsi qu'un chiffre.",
+     *     groups={"Register"},
+     * )
+     *
+     * @Assert\NotBlank(
+     *     message="Merci de renseigner votre mot de passe.",
+     *     )
+     *
+     * @Assert\Length(
+     *     min="8",
+     *     minMessage="Veuillez renseigner un mot de passe d'au moins 8 caractères.",
+     *     )
+     *
+     * @Assert\Regex(
+     *     pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!.:,;^%*?&µù%=&])[A-Za-z\d@$!.:,;^%*?&µù%=&]{8,}$/",
+     *     message="Votre mot de passe doit contenir au moins caractère spécial, une majuscule ainsi qu'un chiffre.",
+     * )
+     *
      */
     private string $password;
 
@@ -141,6 +283,10 @@ class Users implements UserInterface
 
         if (empty($this->createdAt)) {
             $this->setCreatedAt(new \DateTime());
+        }
+
+        if (empty($this->getToken())) {
+            $this->setToken(rtrim(strtr(base64_encode(random_bytes(32)), '+/', '-_'), '='));
         }
     }
 
