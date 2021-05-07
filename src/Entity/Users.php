@@ -89,6 +89,12 @@ class Users implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     *
+     * @Assert\NotBlank(
+     *     message="Merci de renseigner votre pseudo.",
+     *     groups={"Register"}
+     *     )
+     *
      */
     private $gender;
 
