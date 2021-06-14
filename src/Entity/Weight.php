@@ -30,13 +30,6 @@ class Weight
      *     groups={"Register"}
      *     )
      *
-     * @Assert\Length(
-     *     min="3",
-     *     max="3",
-     *     minMessage="Merci de renseigner un poids",
-     *     groups={"Register"}
-     *     )
-     *
      * @Assert\Regex(
      *     pattern="/^(?:[1-9]\d|300)$/",
      *     message="Merci de renseigner un poids valide.",

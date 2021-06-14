@@ -174,13 +174,6 @@ class Users implements UserInterface
      *     groups={"Register"}
      *     )
      *
-     * @Assert\Length(
-     *     min="10",
-     *     max="10",
-     *     minMessage="Merci de renseigner un numéro de téléphone valide.",
-     *     groups={"Register"}
-     *     )
-     *
      */
     private $phone;
 
@@ -542,11 +535,9 @@ class Users implements UserInterface
     /**
      * @see UserInterface
      */
-    public function getRoles(): array
+    public function getRoles()
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
     }
