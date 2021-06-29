@@ -7,6 +7,7 @@
         "php": ">=7.4",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "ext-json": "*",
         "composer/package-versions-deprecated": "1.11.99.1",
         "doctrine/annotations": "^1.12",
         "doctrine/doctrine-bundle": "^2.3",
@@ -22,9 +23,9 @@
         "symfony/framework-bundle": "5.2.*",
         "symfony/proxy-manager-bridge": "5.2.*",
         "symfony/security-bundle": "5.2.*",
+        "symfony/serializer": "5.2.*",
         "symfony/validator": "5.2.*",
-        "symfony/yaml": "5.2.*",
-      "ext-json": "*"
+        "symfony/yaml": "5.2.*"
     },
     "require-dev": {
         "symfony/maker-bundle": "^1.30"
