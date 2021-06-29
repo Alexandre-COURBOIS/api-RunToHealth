@@ -11,11 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/api", name="user_")
- * Class RegisterController
- * @package App\Controller
- */
+
 class UserController extends AbstractController
 {
 
@@ -27,7 +23,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/get/user", name="get_user", methods={"POST"})
+     * @Route("/api/get/user", name="get_user", methods={"POST"})
      * @param UsersRepository $usersRepository
      * @param Request $request
      * @return JsonResponse
@@ -42,7 +38,7 @@ class UserController extends AbstractController
 
             $user = $usersRepository->findOneBy(['email' => $email]);
 
-            $jsonContent = $this->serializerService->RelationSerializerGroups($user,'json','users');
+            $jsonContent = $this->serializerService->RelationSerializerGroups($user, 'json','users');
 
             return JsonResponse::fromJsonString($jsonContent);
 

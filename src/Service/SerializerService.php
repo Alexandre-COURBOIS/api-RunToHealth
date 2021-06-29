@@ -38,7 +38,7 @@ class SerializerService
         return $jsonContent;
     }
 
-    public function RelationSerializerGroups($inputData, $outputFormatData): string
+    public function RelationSerializerGroups($inputData, $outputFormatData, string $string): string
     {
         $encoders = $this->encoders;
 
