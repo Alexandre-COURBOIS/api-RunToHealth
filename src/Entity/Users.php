@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UsersRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -272,6 +274,16 @@ class Users implements UserInterface
      * @ORM\Column(type="datetime", nullable=true)
      */
     private ?\DateTimeInterface $updatedAt;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Objectives::class, mappedBy="user")
+     */
+    private $objectives;
+
+    public function __construct()
+    {
+        $this->objectives = new ArrayCollection();
+    }
 
     /**
      * @ORM\PrePersist()
@@ -585,6 +597,36 @@ class Users implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    /**
+     * @return Collection|Objectives[]
+     */
+    public function getObjectives(): Collection
+    {
+        return $this->objectives;
+    }
+
+    public function addObjective(Objectives $objective): self
+    {
+        if (!$this->objectives->contains($objective)) {
+            $this->objectives[] = $objective;
+            $objective->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeObjective(Objectives $objective): self
+    {
+        if ($this->objectives->removeElement($objective)) {
+            // set the owning side to null (unless already changed)
+            if ($objective->getUser() === $this) {
+                $objective->setUser(null);
+            }
+        }
+
+        return $this;
     }
 
 }
