@@ -96,7 +96,7 @@ class DataController extends AbstractController
 
         }else{
             return $this->json([
-                'root' => 'data'
+                'root' => 'data does not exist'
 
             ]);
         }
