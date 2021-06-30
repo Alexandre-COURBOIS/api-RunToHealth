@@ -43,7 +43,7 @@ class AccountController extends AbstractController
     }
 
     /**
-     * @Route("/check-token", name="check-token"")
+     * @Route("/check-token", name="check-token")
      */
     public function checkToken(Request $request, UsersRepository $usersRepository): Response
     {
