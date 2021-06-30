@@ -265,10 +265,10 @@
                                             <div class="txtTinyMce-wrapper"
                                                  style="font-size: 12px; line-height: 1.2; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #66BECD; mso-line-height-alt: 14px;">
                                                 <p style="font-size: 40px; line-height: 1.2; font-family: Helvetica Neue, Helvetica, Arial, sans-serif; word-break: break-word; mso-line-height-alt: 60px; margin: 0;">
-                                                    <span style="font-size: 40px;"><span style="font-size: 40px;">Plus que quelques cliques</span></span>
+                                                    <span style="font-size: 40px;"><span style="font-size: 40px;">Vos informations</span></span>
                                                 </p>
                                                 <p style="font-size: 40px; line-height: 1.2; font-family: Helvetica Neue, Helvetica, Arial, sans-serif; word-break: break-word; mso-line-height-alt: 60px; margin: 0;">
-                                                    <span style="font-size: 40px;"><span style="font-size: 40px;">pour activer votre compte !</span></span>
+                                                    <span style="font-size: 40px;"><span style="font-size: 40px;">ont bien été mise à jour !</span></span>
                                                 </p>
                                             </div>
                                         </div>
@@ -380,10 +380,9 @@
                                         <div class="txtTinyMce-wrapper"
                                              style="font-size: 12px; line-height: 1.5; color: #555555; font-family: Arial, Helvetica Neue, Helvetica, sans-serif; mso-line-height-alt: 18px;">
                                             <p style="font-size: 17px; line-height: 1.5; text-align: left; word-break: break-word; mso-line-height-alt: 26px; mso-ansi-font-size: 18px; margin: 0;">
-                                                <span style="font-size: 17px; mso-ansi-font-size: 18px;">Bonjour {{ user.surname }} {{ user.name }}, veuillez cliquer sur le lien suivant afin d'activer votre compte : .</span>
+                                                <span style="font-size: 17px; mso-ansi-font-size: 18px;">Bonjour {{ user.surname }} {{ user.name }}, ce mail vous est envoyé afin de vous confirmez la modification de votre
+                                                mot de passe le {{ "now" | date("d/m/Y", 'Europe/Paris') }}</span>
                                             </p>
-                                            <p style="font-size: 14px; line-height: 1.5; text-align: left; word-break: break-word; mso-line-height-alt: 21px; margin: 0;"> </p>
-                                            <a style="font-size:17px; font-weight: bold;" href="http://localhost:8100/tabs/active-account/{{ user.resetToken }}">Activer votre compte</a>
                                             <p style="font-size: 14px; line-height: 1.5; text-align: left; word-break: break-word; mso-line-height-alt: 21px; margin: 0;">
                                                  </p>
                                         </div>

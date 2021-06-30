@@ -239,6 +239,11 @@ class Users implements UserInterface
     private $resetToken;
 
     /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $resetTokenAt;
+
+    /**
      * @ORM\Column(type="boolean")
      */
     private $active;
@@ -272,6 +277,7 @@ class Users implements UserInterface
      * @ORM\Column(type="datetime", nullable=true)
      */
     private ?\DateTimeInterface $updatedAt;
+
 
     /**
      * @ORM\PrePersist()
@@ -449,6 +455,18 @@ class Users implements UserInterface
     public function setResetToken(?string $resetToken): self
     {
         $this->resetToken = $resetToken;
+
+        return $this;
+    }
+
+    public function getResetTokenAt(): ?\DateTimeInterface
+    {
+        return $this->resetTokenAt;
+    }
+
+    public function setResetTokenAt(?\DateTimeInterface $resetTokenAt): self
+    {
+        $this->resetTokenAt = $resetTokenAt;
 
         return $this;
     }
