@@ -122,14 +122,13 @@ class UserController extends AbstractController
 
     /**
      * @Route("/api/user/password/informations/update", name="informationsPasswordUpdate", methods={"PATCH"})
-     * @param UserRepository $userRepository
      * @param Request $request
      * @param UserPasswordEncoderInterface $passwordEncoder
      * @param ValidatorInterface $validator
      * @param EntityManagerInterface $entityManager
      * @return JsonResponse
      */
-    public function updatePasswordInformations(UsersRepository $usersRepository, Request $request, UserPasswordEncoderInterface $passwordEncoder, ValidatorInterface $validator, EntityManagerInterface $entityManager)
+    public function updatePasswordInformations(Request $request, UserPasswordEncoderInterface $passwordEncoder, ValidatorInterface $validator, EntityManagerInterface $entityManager)
     {
 
         //get the data
