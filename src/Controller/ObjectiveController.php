@@ -186,29 +186,44 @@ class ObjectiveController extends AbstractController
     }
 
     /**
-     * @Route("/suppression", name="suppression")
+     * @Route("/api/delete-objective", name="delete_objective")
      * @param Request $request
      * @param ObjectivesRepository $objectivesRepository
      * @param ObjectiveSportRepository $objectiveSportRepository
      * @param ObjectiveSmokerRepository $objectiveSmokerRepository
+     * @param ObjectiveAlcoholRepository $objectiveAlcoholRepository
+     * @param ObjectiveWeightRepository $objectiveWeightRepository
      * @param EntityManagerInterface $em
      * @return Response
      */
     public function Suppression(Request $request, ObjectivesRepository $objectivesRepository, ObjectiveSportRepository $objectiveSportRepository
-        , ObjectiveSmokerRepository $objectiveSmokerRepository, EntityManagerInterface $em): Response
+        , ObjectiveSmokerRepository $objectiveSmokerRepository,ObjectiveAlcoholRepository $objectiveAlcoholRepository,ObjectiveWeightRepository $objectiveWeightRepository,EntityManagerInterface $em): Response
     {
 
         $data = json_decode($request->getContent(), true);
-        $objectives = $objectivesRepository->find(["id" => 2]);
+        $objectives = $objectivesRepository->findBy(["id" => $data['id']]);
 
-        $sport = $objectiveSportRepository->find($objectives);
+        foreach ($objectives as $value){
 
-        $em->remove($sport);
-        $em->flush();
-        /*$em->remove($sport);
-        $em->flush();*/
+           $type=$value->getType();
 
-        return new JsonResponse('ff');
+            if($type=='Cigarette'){
+                $deleteObjective=$objectiveSmokerRepository->findBy(["id" => $value->getId()]);
+            }else if($type=='Poids'){
+                $deleteObjective=$objectiveWeightRepository->findBy(["id" => $value->getId()]);
+            }else if($type=='Alcool'){
+                $deleteObjective=$objectiveAlcoholRepository->find($value);
+            }else if($type=='Sports'){
+                $deleteObjective=$objectiveSportRepository->find($value);
+            }
+            return new JsonResponse($deleteObjective);
+
+        }
+
+        //$em->remove($deleteObjective);
+        //$em->flush();
+
+        //return new JsonResponse($deleteObjective);
 
     }
 
