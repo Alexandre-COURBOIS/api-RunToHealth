@@ -51,6 +51,17 @@ class Users implements UserInterface
      *     groups={"Register"}
      *     )
      *
+     * @Assert\NotBlank(
+     *     message="Merci de renseigner votre nom.",
+     *     groups={"UserInformations"}
+     *     )
+     *
+     * @Assert\Length(
+     *     min="2",
+     *     minMessage="Merci de renseigner un nom correct",
+     *     groups={"UserInformations"}
+     *     )
+     *
      */
     private $name;
 
@@ -66,6 +77,17 @@ class Users implements UserInterface
      *     min="2",
      *     minMessage="Merci de renseigner un prenom correct",
      *     groups={"Register"}
+     *     )
+     *
+     * @Assert\NotBlank(
+     *     message="Merci de renseigner votre prenom.",
+     *     groups={"UserInformations"}
+     *     )
+     *
+     * @Assert\Length(
+     *     min="2",
+     *     minMessage="Merci de renseigner un prenom correct",
+     *     groups={"UserInformations"}
      *     )
      *
      */
@@ -85,6 +107,16 @@ class Users implements UserInterface
      *     groups={"Register"}
      *     )
      *
+     * @Assert\NotBlank(
+     *     message="Merci de renseigner votre pseudo.",
+     *     groups={"UserInformations"}
+     *     )
+     *
+     * @Assert\Length(
+     *     min="2",
+     *     minMessage="Merci de renseigner un pseudo correct",
+     *     groups={"UserInformations"}
+     *     )
      */
     private $pseudo;
 
@@ -112,6 +144,16 @@ class Users implements UserInterface
      *     groups={"Register"}
      *     )
      *
+     * @Assert\NotBlank(
+     *     message="Merci de renseigner votre email.",
+     *     groups={"UserContact"}
+     *     )
+     *
+     * @Assert\Email(
+     *     message="Veuillez renseigner un mail valide.",
+     *     groups={"UserContact"}
+     *     )
+     *
      */
     private ?string $email;
 
@@ -129,6 +171,17 @@ class Users implements UserInterface
      *     groups={"Register"}
      *     )
      *
+     * @Assert\NotBlank(
+     *     message="Merci de renseigner votre ville.",
+     *     groups={"UserContact"}
+     *     )
+     *
+     * @Assert\Length(
+     *     min="2",
+     *     minMessage="Merci de renseigner une ville existante.",
+     *     groups={"UserContact"}
+     *     )
+     *
      */
     private $city;
 
@@ -144,7 +197,7 @@ class Users implements UserInterface
      * @Assert\Length(
      *     min="5",
      *     minMessage="Merci de renseigner une adresse correct",
-     *     groups={"UpdateContactInformations"}
+     *     groups={"UserContact"}
      *     )
      *
      */
@@ -162,6 +215,17 @@ class Users implements UserInterface
      *     min="2",
      *     minMessage="Merci de renseigner un code postale valide.",
      *     groups={"Register"}
+     *     )
+     *
+     * @Assert\Length(
+     *     min="5",
+     *     minMessage="Merci de renseigner une adresse correct",
+     *     groups={"UserContact"}
+     *     )
+     *
+     * @Assert\NotBlank(
+     *     message="Merci de renseigner votre code postal.",
+     *     groups={"UserContact"}
      *     )
      *
      */
@@ -223,6 +287,23 @@ class Users implements UserInterface
      * @Assert\Regex(
      *     pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!.:,;^%*?&µù%=&])[A-Za-z\d@$!.:,;^%*?&µù%=&]{8,}$/",
      *     message="Votre mot de passe doit contenir au moins caractère spécial, une majuscule ainsi qu'un chiffre.",
+     * )
+     *
+     * @Assert\NotBlank(
+     *     message="Merci de renseigner votre mot de passe.",
+     *     groups={"PasswordUpdate"}
+     *     )
+     *
+     * @Assert\Length(
+     *     min="8",
+     *     minMessage="Veuillez renseigner un mot de passe d'au moins 8 caractères.",
+     *     groups={"PasswordUpdate"}
+     *     )
+     *
+     * @Assert\Regex(
+     *     pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!.:,;^%*?&µù%=&])[A-Za-z\d@$!.:,;^%*?&µù%=&]{8,}$/",
+     *     message="Votre mot de passe doit contenir au moins caractère spécial, une majuscule ainsi qu'un chiffre.",
+     *     groups={"PasswordUpdate"}
      * )
      *
      */
