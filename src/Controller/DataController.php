@@ -44,8 +44,8 @@ class DataController extends AbstractController
             $objective->setCreatedAt(date_create());
             $objective->setUpdateAt(date_create());
             $objective->setSucess(false);
-            $objective->setBeginAt(new \DateTime($data['begin']));
-            $objective->setEndAt(new \DateTime($data['end']));
+            $objective->setBeginAt(date("d/m/Y", strtotime($data['begin'])));
+            $objective->setEndAt(date("d/m/Y", strtotime($data['end'])));
             $objective->setType($data['objectif']);
 
             $this->manager->persist($objective);
@@ -72,7 +72,7 @@ class DataController extends AbstractController
             }else if($data['objectif']==="Sport"){
 
                 $sport=new ObjectiveSport();
-                $sport->setTime(new \DateTime($data['timeSport']));
+                $sport->setTime(date("h:i:s", strtotime($data['timeSport'])));
                 $sport->setCreatedAt(date_create());
                 $sport->setObjective($objective);
 

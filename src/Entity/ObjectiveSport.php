@@ -18,7 +18,7 @@ class ObjectiveSport
     private $id;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="string", length=255)
      */
     private $time;
 
@@ -37,12 +37,12 @@ class ObjectiveSport
         return $this->id;
     }
 
-    public function getTime(): ?\DateTimeInterface
+    public function getTime(): ?string
     {
         return $this->time;
     }
 
-    public function setTime(\DateTimeInterface $time): self
+    public function setTime(string $time): self
     {
         $this->time = $time;
 

@@ -23,12 +23,12 @@ class Objectives
     private $type;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="string", length=255)
      */
     private $begin_at;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="string", length=255)
      */
     private $end_at;
 
@@ -69,24 +69,24 @@ class Objectives
         return $this;
     }
 
-    public function getBeginAt(): ?\DateTimeInterface
+    public function getBeginAt(): ?string
     {
         return $this->begin_at;
     }
 
-    public function setBeginAt(\DateTimeInterface $begin_at): self
+    public function setBeginAt(string $begin_at): self
     {
         $this->begin_at = $begin_at;
 
         return $this;
     }
 
-    public function getEndAt(): ?\DateTimeInterface
+    public function getEndAt(): ?string
     {
         return $this->end_at;
     }
 
-    public function setEndAt(\DateTimeInterface $end_at): self
+    public function setEndAt(string $end_at): self
     {
         $this->end_at = $end_at;
 
