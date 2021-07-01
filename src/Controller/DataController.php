@@ -34,7 +34,7 @@ class DataController extends AbstractController
     public function index(Request $request,UsersRepository $usersRepository): Response
     {
         $objective= new Objectives();
-        $user= $usersRepository->findOneBy(["email"=>"julien@gmail.com"]);
+        $user= $usersRepository->findOneBy(["email"=>"julien.mallet.pro@gmail.com"]);
 
         $data = json_decode($request->getContent(), true);
 
@@ -72,7 +72,7 @@ class DataController extends AbstractController
             }else if($data['objectif']==="Sport"){
 
                 $sport=new ObjectiveSport();
-                $sport->setTime(date("h:i:s", strtotime($data['timeSport'])));
+                $sport->setTime(date("i:s", strtotime($data['timeSport'])));
                 $sport->setCreatedAt(date_create());
                 $sport->setObjective($objective);
 

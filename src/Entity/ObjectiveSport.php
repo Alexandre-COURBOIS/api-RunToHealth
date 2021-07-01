@@ -28,7 +28,7 @@ class ObjectiveSport
     private $created_at;
 
     /**
-     * @ORM\OneToOne(targetEntity=objectives::class, cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=objectives::class, cascade={"remove"},orphanRemoval=true)
      */
     private $objective;
 

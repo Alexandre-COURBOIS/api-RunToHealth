@@ -28,7 +28,7 @@ class ObjectiveWeight
     private $created_at;
 
     /**
-     * @ORM\OneToOne(targetEntity=Objectives::class, cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=Objectives::class,cascade={"remove"},orphanRemoval=true)
      */
     private $objective;
 
