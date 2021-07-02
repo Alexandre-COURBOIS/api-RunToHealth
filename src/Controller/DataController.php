@@ -25,7 +25,7 @@ class DataController extends AbstractController
     }
 
     /**
-     * @Route("/data", name="data")
+     * @Route("/api/add-objectif", name="api_add_objectif")
      * @param Request $request
      * @param UsersRepository $usersRepository
      * @return Response
@@ -33,10 +33,12 @@ class DataController extends AbstractController
      */
     public function index(Request $request,UsersRepository $usersRepository): Response
     {
-        $objective= new Objectives();
-        $user= $usersRepository->findOneBy(["email"=>"julien.mallet.pro@gmail.com"]);
-
         $data = json_decode($request->getContent(), true);
+
+
+        $objective= new Objectives();
+
+        $user= $usersRepository->findOneBy(["email"=>$data['email']]);
 
         if(isset($data)) {
 
@@ -44,44 +46,44 @@ class DataController extends AbstractController
             $objective->setCreatedAt(date_create());
             $objective->setUpdateAt(date_create());
             $objective->setSucess(false);
-            $objective->setBeginAt(date("d/m/Y", strtotime($data['begin'])));
-            $objective->setEndAt(date("d/m/Y", strtotime($data['end'])));
-            $objective->setType($data['objectif']);
+            $objective->setBeginAt(date("d/m/Y", strtotime($data['data']['begin'])));
+            $objective->setEndAt(date("d/m/Y", strtotime($data['data']['end'])));
+            $objective->setType($data['data']['objectif']);
 
             $this->manager->persist($objective);
             $this->manager->flush();
 
-            if ($data['objectif']==="Poids") {
+            if ($data['data']['objectif']==="Poids") {
 
                 $weight = new ObjectiveWeight();
-                $weight->setNumber($data['numberPoids']);
+                $weight->setNumber($data['data']['numberPoids']);
                 $weight->setCreatedAt(date_create());
                 $weight->setObjective($objective);
 
                 $this->manager->persist($weight);
 
-            }else if($data['objectif']==="Alcool"){
+            }else if($data['data']['objectif']==="Alcool"){
 
                 $alcool= new ObjectiveAlcohol();
-                $alcool->setDrink($data['alcool']);
+                $alcool->setDrink($data['data']['alcool']);
                 $alcool->setCreatedAt(date_create());
                 $alcool->setObjective($objective);
 
                 $this->manager->persist($alcool);
 
-            }else if($data['objectif']==="Sport"){
+            }else if($data['data']['objectif']==="Sport"){
 
                 $sport=new ObjectiveSport();
-                $sport->setTime(date("i:s", strtotime($data['timeSport'])));
+                $sport->setTime(date("i:s", strtotime($data['data']['timeSport'])));
                 $sport->setCreatedAt(date_create());
                 $sport->setObjective($objective);
 
                 $this->manager->persist($sport);
 
-            }else if($data['objectif']==="Cigarette"){
+            }else if($data['data']['objectif']==="Cigarette"){
 
                 $smoker=new ObjectiveSmoker();
-                $smoker->setNumber($data['numberCigarette']);
+                $smoker->setNumber($data['data']['numberCigarette']);
                 $smoker->setCreatedAt(date_create());
                 $smoker->setObjective($objective);
 
@@ -90,9 +92,7 @@ class DataController extends AbstractController
 
             $this->manager->flush();
 
-            return $this->json(
-                $data,
-            );
+            return new JsonResponse($data, Response::HTTP_OK);
 
         }else{
             return $this->json([
